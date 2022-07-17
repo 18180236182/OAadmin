@@ -21,7 +21,7 @@
       <el-checkbox v-model="isKeepPassword">记住密码</el-checkbox>
       <el-link type="primary">忘记密码</el-link>
     </div>
-    <el-button class="login-btn" type="primary" @click="handleLoginClick">立即登录</el-button>
+    <el-button class="login-btn" type="primary" @click="_handleLoginClick">立即登录</el-button>
   </div>
 </template>
 
@@ -37,21 +37,22 @@ export default defineComponent({
   },
   setup () {
     // 记住密码
-    const isKeepPassword = ref(false)
+    const isKeepPassword = ref<boolean>(true)
     // ts: 获取到子组件的类型 <InstanceType<typeof 子组件名称>>
     const accountRef = ref<InstanceType<typeof LoginAccount>>()
 
     // 登录点击
-    const handleLoginClick = () => {
+    const _handleLoginClick = () => {
       // 调用子组件方法
       // eslint-disable-next-line no-unused-expressions
-      accountRef.value?.loginAccount()
+      accountRef.value?._loginAccount(isKeepPassword.value)
     }
 
+    // 记住密码
     return {
       isKeepPassword,
       accountRef,
-      handleLoginClick
+      _handleLoginClick
     }
   }
 })

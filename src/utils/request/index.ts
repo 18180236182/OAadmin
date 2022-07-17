@@ -3,15 +3,22 @@
  */
 
 import HttpRequest from '@/utils/request/request'
-import { BASE_URL, TIME_OUT } from '@/utils/request/config'
+import { API_BASE_URL, TIME_OUT } from '@/utils/request/config'
+import localCache from '@/utils/cache'
 
 const hRequest = new HttpRequest({
-  baseURL: BASE_URL,
+  baseURL: API_BASE_URL,
   timeout: TIME_OUT,
   // 拦截器
   interceptors: {
     // 请求成功
-    requestInterceptors: config => {
+    requestInterceptors: (config) => {
+      const token = localCache.getCache('token')
+      if (token) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        config.headers.Authorization = `Bearer ${token}`
+      }
       return config
     },
     // 请求失败

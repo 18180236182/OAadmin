@@ -83,18 +83,18 @@ class HttpRequest {
           text: 'Loading',
           background: 'rgba(0, 0, 0, 0.7)'
         })
-        console.log('所有实例共有的拦截-请求成功')
+        // console.log('所有实例共有的拦截-请求成功')
         return config
       },
       (error) => {
-        console.log('所有实例共有的拦截-请求失败')
+        // console.log('所有实例共有的拦截-请求失败')
         return error
       }
     )
 
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有实例共有的拦截-响应成功')
+        // console.log('所有实例共有的拦截-响应成功')
         // 关闭loading
         // eslint-disable-next-line no-unused-expressions
         this.loading?.close()
@@ -103,7 +103,7 @@ class HttpRequest {
       (error) => {
         // eslint-disable-next-line no-unused-expressions
         this.loading?.close()
-        console.log('所有实例共有的拦截-响应失败')
+        // console.log('所有实例共有的拦截-响应失败')
         return error
       }
     )
